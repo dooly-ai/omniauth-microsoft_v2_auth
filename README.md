@@ -1,6 +1,9 @@
-Please note that this is merely a fork of a sub-directory in [this example Ruby Microsoft Graph repo](https://github.com/microsoftgraph/ruby-connect-rest-sample/tree/master/omniauth-microsoft_v2_auth),
+
+*Please note that this is merely a fork of a sub-directory in [this example Ruby Microsoft Graph repo](https://github.com/microsoftgraph/ruby-connect-rest-sample/tree/master/omniauth-microsoft_v2_auth)
 with the README tweaked to show how to install the gem directly from git (since it doesn't seem to
-actually be published on RubyGems).
+actually be published on RubyGems).*
+
+🤘
 
 # Omniauth::MicrosoftV2Auth
 
