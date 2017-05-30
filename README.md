@@ -1,95 +1,32 @@
-﻿## Microsoft Graph Ruby on Rails Connect Sample
+Please note that this is merely a fork of a sub-directory in [this example Ruby Microsoft Graph repo](https://github.com/microsoftgraph/ruby-connect-rest-sample/tree/master/omniauth-microsoft_v2_auth),
+with the README tweaked to show how to install the gem directly from git (since it doesn't seem to
+actually be published on RubyGems).
 
-[![Build Status](https://api.travis-ci.org/microsoftgraph/ruby-connect-rest-sample.svg?branch=master)](https://travis-ci.org/microsoftgraph/ruby-connect-rest-sample)
+# Omniauth::MicrosoftV2Auth
 
-Use Microsoft Graph to access a user’s Microsoft account resources from within a Ruby on Rails web application. This sample uses REST calls directly to the Microsoft Graph endpoint to work with user resources--in this case, to send an email as the user.
+Microsoft V2 OAuth2 Strategy for OmniAuth.
+Can be used to authenticate with Microsoft Services and get a token for the Microsoft Graph Api.
 
-The sample uses OmniAuth middleware to authenticate against the Azure AD v2.0 endpoint. The Azure AD v2.0 endpoint enables developers to write a single code flow that handles authentication for both users' work or school (Azure Active Directory) or personal (Microsoft) accounts, including Office 365, Outlook.com, and OneDrive accounts.
+## Installation
 
-The sample also uses the Office Fabric UI for styling and formatting the user experience.
+Add this line to your application's Gemfile:
 
-![Microsoft Ruby on Rails Connect sample screenshot](/readme-images/Microsoft-Graph-Ruby-Connect-UI.png)
+```ruby
+gem 'omniauth-microsoft_v2_auth', github: 'dooly-ai/omniauth-microsoft_v2_auth'
+```
 
-## Prerequisites
+And then execute:
 
-To use this sample, the following are required:
+    $ bundle
 
-- Ruby 2.1 to run the sample on a development server.
-- Rails framework (the sample has been tested on Rails 4.2).
-- Bundler dependency manager.
-- Rack web server interface for Ruby.
-- A [Microsoft account](https://www.outlook.com/) or an [Office 365 for business account](https://msdn.microsoft.com/en-us/office/office365/howto/setup-development-environment#bk_Office365Account)
+Or install it yourself as:
 
-## Register the application
+    $ gem install omniauth-microsoft_v2_auth
 
-Register an app on the Microsoft App Registration Portal. This generates the app ID and password that you'll use to configure the app for authentication.
+## Usage
 
-1. Sign into the [Microsoft App Registration Portal](https://apps.dev.microsoft.com/) using either your personal or work or school account.
-
-2. Choose **Add an app**.
-
-3. Enter a name for the app, and choose **Create application**.
-
-	The registration page displays, listing the properties of your app.
-
-4. Copy the application ID. This is the unique identifier for your app.
-
-5. Under **Application Secrets**, choose **Generate New Password**. Copy the app secret from the **New password generated** dialog.
-
-	You'll use the application ID and app secret to configure the app.
-
-6. Under **Platforms**, choose **Add platform** > **Web**.
-
-7. Make sure the **Allow Implicit Flow** check box is selected, and enter *http://localhost:3000/auth/microsoft_v2_auth/callback* as the Redirect URI.
-
-	The **Allow Implicit Flow** option enables the OpenID Connect hybrid flow. During authentication, this enables the app to receive both sign-in info (the **id_token**) and artifacts (in this case, an authorization code) that the app uses to obtain an access token.
-
-	The redirect URI *http://localhost:3000/auth/microsoft_v2_auth/callback* is the value that the OmniAuth middleware is configured to use once it has processed the authentication request.
-
-8. Choose **Save**.
-
-## Build and run the sample
-
-1. Download or clone the sample and open it in the editor of your choice.
-1. If you don't already have bundler and rack, you can install them with the following command.
-
-	```
-	gem install bundler rack
-	```
-2. In the [config/environment.rb](config/environment.rb) file do the following.
-    1. Replace *ENTER_YOUR_CLIENT_ID* with the app ID of your registered  application.
-    2. Replace *ENTER_YOUR_SECRET* with the app secret for your registered application.
-
-3. Install the Rails application and dependencies with the following command.
-
-	```
-	bundle install
-	```
-4. To start the Rails application, type the following command.
-
-	```
-	rackup -p 3000
-	```
-5. Go to ```http://localhost:3000``` in your web browser.
-
-<a name="contributing"></a>
-## Contributing ##
-
-If you'd like to contribute to this sample, see [CONTRIBUTING.MD](/CONTRIBUTING.md).
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
-## Questions and comments
-
-We'd love to get your feedback about the Microsoft Graph Ruby on Rails Connect sample. You can send your questions and suggestions to us in the [Issues](https://github.com/microsoftgraph/ruby-connect-rest-sample/issues) section of this repository.
-
-Your feedback is important to us. Connect with us on [Stack Overflow](http://stackoverflow.com/questions/tagged/office365+or+microsoftgraph). Tag your questions with [MicrosoftGraph].
-
-## See also
-
-- [Other Microsoft Graph Connect samples](https://github.com/MicrosoftGraph?utf8=%E2%9C%93&query=-Connect)
-- [Microsoft Graph dev center](http://graph.microsoft.io)
-- [Office UI Fabric](https://github.com/OfficeDev/Office-UI-Fabric)
-
-## Copyright
-Copyright (c) 2016 Microsoft. All rights reserved.
+```ruby
+Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :microsoft_v2_auth, ENV['AZURE_APPLICATION_CLIENT_ID'], ENV['AZURE_APPLICATION_CLIENT_SECRET']
+end
+```
